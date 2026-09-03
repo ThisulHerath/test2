@@ -4,6 +4,7 @@ function EventForm({
   initialData = {},
   onSubmit,
   submitText = "Create Event",
+  disabled = false,
 }) {
   const [formData, setFormData] = useState({
     title: initialData.title || "",
@@ -112,7 +113,7 @@ function EventForm({
         </div>
       </div>
 
-      <button type="submit" className="submit-btn">
+      <button type="submit" className="submit-btn" disabled={disabled}>
         {submitText}
       </button>
     </form>

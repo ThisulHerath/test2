@@ -1,6 +1,6 @@
 import EventCard from "./EventCard";
 
-function EventList({ events, onViewDetails }) {
+function EventList({ events, onViewDetails, onRegister, registeringId }) {
   if (events.length === 0) {
     return <p>No events found.</p>;
   }
@@ -12,6 +12,8 @@ function EventList({ events, onViewDetails }) {
           key={event._id}
           event={event}
           onViewDetails={onViewDetails}
+          onRegister={onRegister}
+          isRegistering={registeringId === event._id}
         />
       ))}
     </div>

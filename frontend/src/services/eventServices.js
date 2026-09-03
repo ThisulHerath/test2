@@ -1,20 +1,29 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/events`;
+const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:5000/api"}/events`;
 
-export const getEvents = () => axios.get(API_URL);
+const getErrorMessage = (error) =>
+  error.response?.data?.message || error.message || "Something went wrong.";
+
+const unwrap = (request) =>
+  request.then(({ data }) => data.data ?? data);
+
+export const getEvents = (params = {}) =>
+  unwrap(axios.get(API_URL, { params }));
 
 export const getEventById = (id) =>
-  axios.get(`${API_URL}/${id}`);
+  unwrap(axios.get(`${API_URL}/${id}`));
 
 export const createEvent = (eventData) =>
-  axios.post(API_URL, eventData);
+  unwrap(axios.post(API_URL, eventData));
 
 export const updateEvent = (id, eventData) =>
-  axios.put(`${API_URL}/${id}`, eventData);
+  unwrap(axios.put(`${API_URL}/${id}`, eventData));
 
 export const deleteEvent = (id) =>
-  axios.delete(`${API_URL}/${id}`);
+  unwrap(axios.delete(`${API_URL}/${id}`));
 
 export const registerForEvent = (id) =>
-  axios.post(`${API_URL}/${id}/register`);
+  unwrap(axios.post(`${API_URL}/${id}/register`, {}));
+
+export { getErrorMessage };
