@@ -1,16 +1,39 @@
-import { EventBrowser } from './features/events/EventBrowser'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Events from "./pages/Events";
+import CreateEvent from "./pages/CreateEvent";
+import EventDetails from "./pages/EventDetails";
+import EditEvent from "./pages/EditEvent";
 
 function App() {
   return (
-    <main className="app-shell">
-      <header className="site-header">
-        <a className="brand" href="/">Campus Events</a>
-        <span>Discover, learn, and connect.</span>
-      </header>
-      <EventBrowser />
-    </main>
-  )
+    <BrowserRouter>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/events" element={<Events />} />
+
+        <Route
+          path="/events/create"
+          element={<CreateEvent />}
+        />
+
+        <Route
+          path="/events/:id"
+          element={<EventDetails />}
+        />
+
+        <Route
+          path="/events/:id/edit"
+          element={<EditEvent />}
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
