@@ -1,6 +1,13 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:5000/api"}/events`;
+// Use one deployment URL setting throughout the app. `VITE_API_URL` remains as
+// a backwards-compatible fallback for existing hosting configuration.
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:5000/api";
+
+const API_URL = `${API_BASE_URL}/events`;
 
 const getErrorMessage = (error) =>
   error.response?.data?.message || error.message || "Something went wrong.";
